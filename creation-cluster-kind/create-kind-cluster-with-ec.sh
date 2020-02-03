@@ -38,8 +38,36 @@ kubeadmConfigPatches:
 nodes:
 - role: control-plane
 - role: worker
+  extraPortMappings:
+  - containerPort: 9200
+    hostPort: 8001
+    # optional: set the bind address on the host
+    # 0.0.0.0 is the current default
+    listenAddress: "127.0.0.0"
+    # optional: set the protocol to one of TCP, UDP, SCTP.
+    # TCP is the default
+    protocol: TCP
 - role: worker
+  extraPortMappings:
+  - containerPort: 9200
+    hostPort: 8002
+    # optional: set the bind address on the host
+    # 0.0.0.0 is the current default
+    listenAddress: "127.0.0.0"
+    # optional: set the protocol to one of TCP, UDP, SCTP.
+    # TCP is the default
+    protocol: TCP
 - role: worker
+  extraPortMappings:
+  - containerPort: 9200
+    hostPort: 8003
+    # optional: set the bind address on the host
+    # 0.0.0.0 is the current default
+    listenAddress: "127.0.0.0"
+    # optional: set the protocol to one of TCP, UDP, SCTP.
+    # TCP is the default
+    protocol: TCP
+
 EOF
 sleep 5
 
