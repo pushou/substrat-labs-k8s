@@ -1,4 +1,5 @@
 export KUBECONFIG=""
+kind delete cluster
 echo "creation du cluster kind avec la feature-gate ephemeral-container" 
 cat <<EOF | kind create cluster --config=-
 kind: Cluster
