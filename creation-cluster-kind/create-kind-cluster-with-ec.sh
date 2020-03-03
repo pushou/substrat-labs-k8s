@@ -26,15 +26,6 @@ kubeadmConfigPatches:
   nodeRegistration:
     kubeletExtraArgs:
       "feature-gates": "EphemeralContainers=true,CSIInlineVolume=true"
-      node-labels: "ingress-ready=true"
-      authorization-mode: "AlwaysAllow"
-  extraPortMappings:
-  - containerPort: 80
-    hostPort: 80
-    protocol: TCP
-  - containerPort: 443
-    hostPort: 443
-    protocol: TCP²
 - |
   kind: KubeletConfiguration
   featureGates:
@@ -47,6 +38,20 @@ kubeadmConfigPatches:
     CSIInlineVolume: true
 nodes:
 - role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+        authorization-mode: "AlwaysAllow"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
 - role: worker
   extraPortMappings:
   - containerPort: 9200
