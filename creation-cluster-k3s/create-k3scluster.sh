@@ -32,7 +32,7 @@ for node in node{1..3}; do  echo "create node $node"; multipass launch bionic -n
 ipadr=$(multipass list|grep node|awk '{print $3}')
 ipmaster=$(multipass list|grep master|awk '{print $3}')
 
-sudo k3sup install --user ubuntu  --ip  $ipmaster --ssh-key  /var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa
+sudo k3sup install --user ubuntu  --ip  $ipmaster --ssh-key  /var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa --k3s-extra-args '--no-deploy traefik'
 for ipadr in $ipadr ; do sudo k3sup join --user ubuntu  --ip  $ipadr --server-ip  $ipmaster --ssh-key /var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa  ; done
 multipass exec master -- sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 
