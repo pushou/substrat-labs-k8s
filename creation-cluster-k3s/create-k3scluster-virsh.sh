@@ -6,7 +6,7 @@ if ! [ -x "$(command -v multipass)" ]; then
   echo 'install multipass' >&2
   sudo apt update
   sudo apt install snapd
-  sudo snap install multipass --beta --classic
+  sudo snap install multipass --edge --classic
 fi
 
 if [ $(multipass get local.driver) != 'qemu' ]; then
