@@ -1,7 +1,7 @@
 #!/bin/bash
 export PATH=/snap/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export SSH_KEYS="/var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa"
-export OPTIONS="--no-deploy traefik"  
+#export OPTIONS="--no-deploy traefik"  
 export PURGE="$(pwd)/reset-multipass-vm.sh"
 
 if ! [ -x "$(command -v multipass)" ]; then
