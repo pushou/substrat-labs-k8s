@@ -1,7 +1,7 @@
 export KUBECONFIG=""
-kind delete cluster
+kind delete cluster --name tp1k8s
 echo "creation du cluster kind avec la feature-gate ephemeral-container" 
-cat <<EOF | kind create cluster --config=-
+cat <<EOF | kind create cluster --name tp1k8s --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 kubeadmConfigPatches:
@@ -52,6 +52,9 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
+  - containerPort: 1936
+    hostPort: 1936
+    protocol: TCP
 - role: worker
   extraPortMappings:
   - containerPort: 9200
@@ -87,4 +90,4 @@ EOF
 sleep 5
 
 echo  "switching sur le cluster kind.."
-kubectl cluster-info --context kind-kind 
+kubectl cluster-info --context kind-tp1k8s
