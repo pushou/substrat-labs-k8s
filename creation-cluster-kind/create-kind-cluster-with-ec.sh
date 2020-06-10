@@ -43,7 +43,7 @@ nodes:
     kind: InitConfiguration
     nodeRegistration:
       kubeletExtraArgs:
-        node-labels: "ingress-ready=true"
+        node-labels: "ingress-ready=true,run=haproxy-ingress"
         authorization-mode: "AlwaysAllow"
   extraPortMappings:
   - containerPort: 80
@@ -52,8 +52,11 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
-  - containerPort: 1936
-    hostPort: 1936
+  - containerPort: 1024
+    hostPort: 1024
+    protocol: TCP
+  - containerPort: 30777
+    hostPort: 9000
     protocol: TCP
 - role: worker
   extraPortMappings:
