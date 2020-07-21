@@ -10,11 +10,13 @@ if ! [ -x "$(command -v multipass)" ]; then
   sudo apt install snapd
   sudo snap install multipass --edge --classic
   sudo multipass set local.driver=libvirt
+  sudo snap connect multipass:libvirt
 fi
 
 
 if [ $(multipass get local.driver) != 'libvirt' ]; then
     sudo multipass set local.driver=libvirt
+    sudo snap connect multipass:libvirt
 fi
 
 
@@ -42,7 +44,7 @@ echo $ipmaster
 
 sudo k3sup install --user ubuntu  --ip  $ipmaster --ssh-key $SSH_KEYS --k3s-extra-args "$OPTIONS"
 for ipnode in $(echo $ipadr) ; do sudo k3sup join --user ubuntu  --ip  $ipnode --server-ip  $ipmaster --ssh-key $SSH_KEYS  ; done
-multipass exec master -- sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+sudo multipass exec master -- sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 
 export KUBECONFIG="./kubeconfig"         
 kubectl get node -o wide
