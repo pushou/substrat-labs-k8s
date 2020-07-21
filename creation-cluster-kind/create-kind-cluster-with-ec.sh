@@ -102,9 +102,5 @@ nodes:
 EOF
 sleep 5
 
-#kubectl apply -f https://git.io/kube-flannel.yaml
-kubectl apply -f manifests/pv-claim.yaml
-kubectl apply -f manifests/pv-deploy.yaml
-kubectl scale deploy/pv-deploy --replicas=3
 echo  "switching sur le cluster kind.."
 kubectl cluster-info --context kind-tp1k8s
