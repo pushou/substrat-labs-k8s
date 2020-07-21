@@ -78,6 +78,10 @@ nodes:
     # optional: set the protocol to one of TCP, UDP, SCTP.
     # TCP is the default
     protocol: TCP
+  extraMounts:
+  - containerPath: /tmp/hostpath_pv
+    hostPath: /tmp/hostpath_pv
+    readOnly: False
 - role: worker
   extraPortMappings:
   - containerPort: 9200
@@ -88,9 +92,19 @@ nodes:
     # optional: set the protocol to one of TCP, UDP, SCTP.
     # TCP is the default
     protocol: TCP
-
+  extraMounts:
+  - containerPath: /tmp/hostpath_pv
+    hostPath: /tmp/hostpath_pv
+    readOnly: False
+#networking:
+#  podSubnet: "10.244.0.0/16"
+#  disableDefaultCNI: True
 EOF
 sleep 5
 
+#kubectl apply -f https://git.io/kube-flannel.yaml
+kubectl apply -f manifests/pv-claim.yaml
+kubectl apply -f manifests/pv-deploy.yaml
+kubectl scale deploy/pv-deploy --replicas=3
 echo  "switching sur le cluster kind.."
 kubectl cluster-info --context kind-tp1k8s
