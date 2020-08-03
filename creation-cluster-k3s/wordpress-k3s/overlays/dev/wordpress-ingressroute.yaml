@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroutetls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`www-dev.n0secure.org`)
+    kind: Rule
+    services:
+    - name: dev-wordpress
+      port: 80
+    middlewares:
+      - name: dev-wp-headers

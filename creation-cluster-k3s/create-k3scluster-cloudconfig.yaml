@@ -1,7 +1,7 @@
 #!/bin/bash
 export PATH=/snap/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export SSH_KEYS="/var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa"
-#export OPTIONS="--no-deploy traefik"  
+export OPTIONS="--no-deploy traefik"  
 export PURGE="$(pwd)/reset-multipass-vm.sh"
 
 if ! [ -x "$(command -v multipass)" ]; then
@@ -33,8 +33,8 @@ if ! [ -x "$(command -v k3sup)" ]; then
 fi
 
 
-multipass launch bionic -n master -c 2 -m 4G --disk 10G --cloud-init cloud-config.yaml 
-for node in node{1..3}; do echo "create node $node"; multipass launch bionic --disk 10G -n $node --cloud-init cloud-config.yaml; done
+multipass launch focal -n master -c 2 -m 4G --disk 10G --cloud-init cloud-config.yaml 
+for node in node{1..3}; do echo "create node $node"; multipass launch focal --disk 10G -n $node --cloud-init cloud-config.yaml; done
 
 
 ipadr=$(multipass list|grep node|awk '{print $3}')
@@ -42,6 +42,7 @@ ipmaster=$(multipass list|grep master|awk '{print $3}')
 echo $ipadr
 echo $ipmaster
 
+sleep 20
 sudo k3sup install --user ubuntu  --ip  $ipmaster --ssh-key $SSH_KEYS --k3s-extra-args "$OPTIONS"
 for ipnode in $(echo $ipadr) ; do sudo k3sup join --user ubuntu  --ip  $ipnode --server-ip  $ipmaster --ssh-key $SSH_KEYS  ; done
 sudo multipass exec master -- sudo chmod 644 /etc/rancher/k3s/k3s.yaml

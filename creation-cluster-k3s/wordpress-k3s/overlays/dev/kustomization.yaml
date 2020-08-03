@@ -1,0 +1,25 @@
+namespace: dev-wordpress
+secretGenerator:
+  - name: mysql-host
+    literals:
+    - db-host=dev-wordpress-mysql
+    behavior: replace
+  - name: mysql-db
+    literals:
+    - database=wordpress
+    behavior: replace
+  - name: mysql-usr
+    literals:
+    - user=wordpress
+    behavior: replace
+  - name: mysql-pass
+    literals:
+    - password=RJF4JzAjfR6uk7LBQb
+    behavior: replace
+bases:
+- ../../base
+namePrefix: dev-
+patchesStrategicMerge:
+- mysql-deployment.yaml
+- wordpress-deployment.yaml
+- wordpress-ingressroute.yaml
