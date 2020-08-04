@@ -1,7 +1,0 @@
-bases:
-  - ../../base
-resources:
-  - traefik-secret.yaml
-patches:
-  - traefik-ingressroute.yaml
-  - traefik-persistentvolumeclaim.yaml

@@ -7,9 +7,10 @@ metadata:
   namespace: longhorn-system
 spec:
   ports:
-  - port: 8000
+  - name: web
+    port: 80
     protocol: TCP
     targetPort: 8000
-    name: web
   selector:
     app: longhorn-ui
+  type: LoadBalancer
