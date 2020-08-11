@@ -18,7 +18,7 @@ then
    echo "destruction via virsh"
    virsh list --all
    virsh destroy node1 node2 node3 master
-   virsh undefine node1 node2 node3 master
+   virsh undefine node1 node2 node3 master --remove-all-storage 
    echo "en dernier lieu faire sudo systemctl restart snap.multipass.multipassd.service"
 fi
 

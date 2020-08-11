@@ -104,3 +104,5 @@ sleep 5
 
 echo  "switching sur le cluster kind.."
 kubectl cluster-info --context kind-tp1k8s
+echo  "installation du serveur de métriques"
+kubectl apply -f components.yaml
