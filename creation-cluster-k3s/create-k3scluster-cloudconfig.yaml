@@ -55,7 +55,7 @@ sudo multipass exec master -- sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 echo "installation de calico"
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
-sleep 120
+sleep 240
 export KUBECONFIG="$(pwd)/kubeconfig"         
 echo "installation de metallb"
 $METALLB
