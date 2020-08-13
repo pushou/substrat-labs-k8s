@@ -5,7 +5,7 @@ export OPTIONS="--no-deploy traefik --flannel-backend=none --cluster-cidr=192.16
 export PURGE="$(pwd)/reset-multipass-vm.sh"
 export METALLB="$(pwd)/metallb/create-metallb.sh"
 export LONGHORN="$(pwd)/longhorn/create-longhorn.sh"
-export CALICO="$(pwd)/calico/create-cni-calico.sh"
+export CALICO="$(pwd)/calico/create-calico.sh"
 
 
 if ! [ -x "$(command -v multipass)" ]; then
