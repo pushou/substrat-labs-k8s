@@ -1,10 +1,11 @@
 #!/bin/bash
 export PATH=/snap/bin:/usr/local/bin:/usr/local/sbin:$PATH
 export SSH_KEYS="/var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa"
-export OPTIONS="--no-deploy traefik --cluster-cidr=192.168.0.0/16"
+export OPTIONS="--no-deploy traefik --flannel-backend=none --cluster-cidr=192.168.0.0/16"
 export PURGE="$(pwd)/reset-multipass-vm.sh"
 export METALLB="$(pwd)/metallb/create-metallb.sh"
 export LONGHORN="$(pwd)/longhorn/create-longhorn.sh"
+export CALICO="$(pwd)/calico/create-cni-calico.sh"
 
 
 if ! [ -x "$(command -v multipass)" ]; then
