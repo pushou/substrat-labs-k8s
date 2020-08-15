@@ -58,6 +58,9 @@ nodes:
   - containerPort: 30777
     hostPort: 9000
     protocol: TCP
+  extraMounts:
+  - hostPath: ./shared-storage
+    containerPath: /var/local-path-provisioner
 - role: worker
   extraPortMappings:
   - containerPort: 9200
@@ -79,9 +82,8 @@ nodes:
     # TCP is the default
     protocol: TCP
   extraMounts:
-  - containerPath: /tmp/hostpath_pv
-    hostPath: /tmp/hostpath_pv
-    readOnly: False
+  - hostPath: ./shared-storage
+    containerPath: /var/local-path-provisioner
 - role: worker
   extraPortMappings:
   - containerPort: 9200
@@ -93,16 +95,20 @@ nodes:
     # TCP is the default
     protocol: TCP
   extraMounts:
-  - containerPath: /tmp/hostpath_pv
-    hostPath: /tmp/hostpath_pv
+  - hostPath: ./shared-storage
+    containerPath: /var/local-path-provisioner
     readOnly: False
-#networking:
-#  podSubnet: "10.244.0.0/16"
+networking:
+  podSubnet: "10.244.0.0/16"
 #  disableDefaultCNI: True
 EOF
 sleep 5
 
+export KUBECONFIG=""
 echo  "switching sur le cluster kind.."
 kubectl cluster-info --context kind-tp1k8s
 echo  "installation du serveur de métriques"
 kubectl apply -f components.yaml
+
+#echo  "installation open-iscsi"
+#for cont in $(docker ps -q); do docker exec -it $cont  bash -c "apt-get update && apt-get -y install open-iscsi"; done

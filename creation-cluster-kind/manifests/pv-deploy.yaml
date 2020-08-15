@@ -10,7 +10,6 @@ spec:
   selector:
     matchLabels:
       run: pv-deploy
-  strategy: {}
   template:
     metadata:
       creationTimestamp: null
@@ -18,18 +17,14 @@ spec:
         run: pv-deploy
     spec:
       volumes:
-        - name: task-pv-storage
+        - name: pv-storage-localpath
           persistentVolumeClaim:
-            claimName: task-pv-claim
+            claimName: pvc-localpath
       containers:
       - image: nginx:stable
-        name: pv-deploy
+        name: pv-nginx-deploy
         ports:
         - containerPort: 80
         volumeMounts:
           - mountPath: "/usr/share/nginx/html"
-            name: task-pv-storage
-
-
-        resources: {}
-status: {}
+            name: pv-storage-localpath
