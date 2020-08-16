@@ -109,6 +109,7 @@ echo  "switching sur le cluster kind.."
 kubectl cluster-info --context kind-tp1k8s
 echo  "installation du serveur de métriques"
 kubectl apply -f components.yaml
+kind --name tp1k8s export  kubeconfig > kindkubeconfig
 
 #echo  "installation open-iscsi"
 #for cont in $(docker ps -q); do docker exec -it $cont  bash -c "apt-get update && apt-get -y install open-iscsi"; done
