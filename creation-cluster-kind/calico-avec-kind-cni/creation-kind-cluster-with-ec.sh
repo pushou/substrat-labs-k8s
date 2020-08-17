@@ -104,12 +104,14 @@ networking:
 EOF
 sleep 5
 
-export KUBECONFIG=""
+unset KUBECONFIG
 echo  "switching sur le cluster kind.."
 kubectl cluster-info --context kind-tp1k8s
+kind --name tp1k8s export  kubeconfig > kindkubeconfig
 echo  "installation du serveur de métriques"
 kubectl apply -f components.yaml
-kind --name tp1k8s export  kubeconfig > kindkubeconfig
+echo  "installation calico CNI"
+$PWD/install-calico.sh 
 
 #echo  "installation open-iscsi"
 #for cont in $(docker ps -q); do docker exec -it $cont  bash -c "apt-get update && apt-get -y install open-iscsi"; done
