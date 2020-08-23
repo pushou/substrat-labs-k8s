@@ -104,10 +104,12 @@ networking:
 EOF
 sleep 5
 
+
 unset KUBECONFIG
 echo  "switching sur le cluster kind.."
 kubectl cluster-info --context kind-tp1k8s
-kind --name tp1k8s export  kubeconfig > kindkubeconfig
+kind get  kubeconfig --name  tp1k8s > kindkubeconfig
+
 echo  "installation du serveur de métriques"
 kubectl apply -f components.yaml
 echo  "installation calico CNI"
