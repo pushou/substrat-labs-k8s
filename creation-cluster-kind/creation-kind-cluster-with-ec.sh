@@ -1,5 +1,5 @@
 # create registry container unless it already exists
-ip_hote="hostname -I|awk  '{print $1}'"
+ip_hote=$(hostname -I|awk  '{print $1}')
 reg_name='kind-registry'
 reg_port='5000'
 running="$(docker inspect -f '{{.State.Running}}' "${reg_name}" 2>/dev/null || true)"
