@@ -3,6 +3,6 @@ ssh_authorized_keys:
   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCluScPESl1bpumb6lFN/0KEKhEcI+W0VnttVz2jyh9lbwyMoo6eZA7QbwhXx3Qy85u1tD9G1Q6ayzaJ0KdWTRVgqpNA+hWDZ09913zgQS3vnXPvNIBHqZkapnQE7GbegsbCvwfX6ePNBMem9CE8aOKy/6hJU6/ncn1Sf7NxcElRt4xFk9/D0zEjruwApZaWYAT1/O54hfMn1kdkYrRSrz33inR7NPO/LhcJ1WKe+OmDowaEANO49Yr0y83ZzQOmvhBJSfzVA5w2tQIImmWxOagDVEe1kXlyEYqezYcyF77sEAxJTjY90KYOf6DMwn8ke5A0wLDc70cLNR9/UnDJBGr pouchou@portablejmp
  
 
-packages: ['wget','curl','bzip2','ansible','haproxy','open-iscsi']
+packages: ['wget','curl','bzip2','open-iscsi']
 merge_type: 'list(append)+dict(recurse_array)+str()'
 

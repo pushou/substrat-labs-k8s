@@ -1,1 +1,1 @@
-create-k3scluster-cloudconfig.yaml
+create-k3scluster-cloudconfig-eco.sh
