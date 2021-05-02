@@ -41,9 +41,9 @@ for node in node{1..3}; do echo "create node $node"; multipass launch focal --di
 
 ipadr=$(multipass list|grep node|awk '{print $3}')
 ipmaster=$(multipass list|grep master|awk '{print $3}')
-echo 'IP du master K8S'
+echo 'IP du master plane K8S'
 echo $ipmaster
-echo 'IP de  plane K8S'
+echo 'IP du data plane K8S'
 echo $ipadr
 
 sleep 30
@@ -59,5 +59,6 @@ echo "installation de metallb"
 $METALLB
 echo "installation de longhorn"
 $LONGHORN
+export KUBECONFIG="$(pwd)/kubeconfig"
 kubectl get node -o wide
 
