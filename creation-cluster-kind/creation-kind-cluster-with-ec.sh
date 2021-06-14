@@ -151,5 +151,7 @@ echo  "installation de nerdctl"
 
 for cont in $(docker ps |grep -v registry|awk '{print $1}'|grep -v CONTAINER); do docker exec -it $cont  bash -c "apt update && apt -y install wget && cd /tmp && wget https://github.com/containerd/nerdctl/releases/download/v0.8.3/nerdctl-0.8.3-linux-amd64.tar.gz && tar xvfz nerdctl-0.8.3-linux-amd64.tar.gz && mv /tmp/nerdctl /usr/local/bin/nerdctl "; done  
 
+export KUBECONFIG=$(pwd)/kubeconfig
+
 #echo  "installation open-iscsi"
 #for cont in $(docker ps -q); do docker exec -it $cont  bash -c "apt-get update && apt-get -y install open-iscsi"; done
