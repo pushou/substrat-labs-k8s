@@ -18,42 +18,6 @@ docker network connect "kind" "${reg_name}" || true
 cat <<EOF | kind create cluster --name tp1k8s --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
-kubeadmConfigPatches:
-# enable EphemeralContainers feature gate
-- |
-  kind: ClusterConfiguration
-  metadata:
-    name: config
-  apiServer:
-    extraArgs:
-      "feature-gates": "EphemeralContainers=true,CSIInlineVolume=true"
-  scheduler:
-    extraArgs:
-      "feature-gates": "EphemeralContainers=true,CSIInlineVolume=true"
-  controllerManager:
-    extraArgs:
-      "feature-gates": "EphemeralContainers=true,CSIInlineVolume=true"
-- |
-  kind: InitConfiguration
-  metadata:
-    name: config
-  nodeRegistration:
-    kubeletExtraArgs:
-      "feature-gates": "EphemeralContainers=true,CSIInlineVolume=true"
-- |
-  kind: KubeletConfiguration
-  featureGates:
-    EphemeralContainers: true
-    CSIInlineVolume: true
-- |
-  kind: KubeProxyConfiguration
-  featureGates:
-    EphemeralContainers: true
-    CSIInlineVolume: true
-containerdConfigPatches:
-- |-
-  [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:${reg_port}"]
-    endpoint = ["http://${reg_name}:${reg_port}"]
 nodes:
 - role: control-plane
   kubeadmConfigPatches:
@@ -150,7 +114,7 @@ EOF
 echo  "installation de nerdctl"
 
 
-for cont in $(docker ps |grep -v registry|grep -i kindest|awk '{print $1}'|grep -v CONTAINER); do docker exec -it $cont  bash -c "apt update && apt -y install wget && cd /tmp && wget https://github.com/containerd/nerdctl/releases/download/v0.18.0/nerdctl-0.18.0-linux-amd64.tar.gz && tar xvfz nerdctl-0.18.0-linux-amd64.tar.gz && mv /tmp/nerdctl /usr/local/bin/nerdctl "; done  
+for cont in $(docker ps |grep -v registry|grep -i kindest|awk '{print $1}'|grep -v CONTAINER); do docker exec -it $cont  bash -c "apt update && apt -y install wget && cd /tmp && wget https://github.com/containerd/nerdctl/releases/download/v1.5.0/nerdctl-1.5.0-linux-amd64.tar.gz && tar xvfz nerdctl-1.5.0-linux-amd64.tar.gz && mv /tmp/nerdctl /usr/local/bin/nerdctl "; done  
 
 export KUBECONFIG=$(pwd)/kubeconfig
 
